@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>MTA Weekender Map Thingy</title>
+<style>
+img {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+</style>
+<script>
+var BASE_URL = "tiles/";
+var TILE_WIDTH = 256;
+var NUM_ROWS = 14;
+var TILES_PER_ROW = 14;
+
+function onImgError() {
+  console.error("ERROR FETCHING", this.src);
+}
+
+function addTile(x, y) {
+  var url = BASE_URL + x + "_" + y + ".png";
+  var img = document.createElement("img");
+  img.src = url;
+  img.onerror = onImgError;
+  document.body.appendChild(img);
+}
+
+onload = function() {
+  document.body.style.width = (TILE_WIDTH * TILES_PER_ROW) + "px";
+  for (var y = 0; y < NUM_ROWS; y++) {
+  	for (var x = 0; x < TILES_PER_ROW; x++) {
+  	  addTile(x, y);
+  	}
+  }
+};
+</script>
